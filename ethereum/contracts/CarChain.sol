@@ -139,7 +139,7 @@ contract CarChain {
     }
     
     //Workshops
-    function authorizeWorkshop(bytes32 user_hash,bytes32 new_workshop_hash) public isWorkshopAdded(new_workshop_hash) returns (bool){
+    function authorizeWorkshop(bytes32 user_hash,bytes32 new_workshop_hash) public isWorkshopAdded(new_workshop_hash) isContractOwner(user_hash) returns (bool){
         authorized_workshops[new_workshop_hash] = true;
         workshops[new_workshop_hash];
         return true;
