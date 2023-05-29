@@ -1,0 +1,39 @@
+/* 
+
+
+*{
+  box-sizing: border-box;
+  background: rgb(0 100 0 / 0.1) !important;
+} */
+.home-section{
+  position: relative;
+  background: #E4E9F7;
+  min-height: 100vh;
+  top: 0;
+  left: 78px;
+  width: calc(100% - 78px);
+  transition: all 0.5s ease;
+  z-index: 2;
+}
+
+.home-section .text{
+  display: inline-block;
+  color: #11101d;
+  font-size: 25px;
+  font-weight: 500;
+  margin: 18px
+}
+
+.content{
+  height: 100vh;
+  width: auto;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.create{
+  width: 50%;
+  height: 100%;
+  padding: 1em;
+}

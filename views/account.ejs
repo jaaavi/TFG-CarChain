@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/86589e81fc.js" crossorigin="anonymous"></script>
+
+    <script src="https://kit.fontawesome.com/86589e81fc.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/account.css" />
+    <title>CarChain</title>
+</head>
+<body>
+    
+    <section>
+
+      <div class="container-md p-3" >
+          <div class="row mb-3">
+            <div class="row" style="height: 7em; width: 100%; background-color: rgba(17, 16, 29, 0.745); border-radius: 2em;">
+              <h6 class="mt-3 ml-5" style="color: white;">Profile</h6>
+              <div class="col-8">
+                <h4 style="color: white;">Welcome, <%= user.username %> - <%= user.email %></h4>
+              </div>
+              <div class="col-4">
+                <a href="/">
+                  <button type="button" class="btn btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
+                    </svg>
+                    Search vehicle information
+                    </button>
+                </a>
+                
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <h1>My vehicles</h1>
+            <div class="col-8 grid-vehicles">
+                <% if (vehicles.length > 0) { %>
+                  <% vehicles.forEach(function(v){ %>
+                    <div class="card m-3" >
+                      <div class="card-body">
+                        <h5 class="card-title"><%= v.plate_number %></h5>
+                        <h6 class="card-subtitle mb-2 text-muted"><%= v.make + " - " + v.model %></h6>
+                        <p class="card-text">Visibility: <%= v.visibility %></p>
+                        <a href="/account/reparations?id=<%= v.id %>" class="card-link">View reparations</a>
+                        <% if (v.visibility === 'private') { %>
+                          <a href="/account/visibility?id=<%= v.id %>&visibility=<%= v.visibility %>" class="card-link">Change visibility to public</a>
+                        <%} else { %>
+                          <a href="/account/visibility?id=<%= v.id %>&visibility=<%= v.visibility %>" class="card-link">Change visibility to private</a>
+                          <% } %>
+                      </div>
+                    </div> 
+                        
+                  <% }); %>
+                <%} else { %>
+                  
+                <% } %>
+    
+                
+              </div>
+              <div class="col-4" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;">
+                <h4 class="text-left mt-3 mb-3">Reparations</h4>
+
+                <% if (reparations.length > 0) { %>
+
+                  <% reparations.forEach(function(w){ %>
+                    <div class="card row-hover pos-relative py-3 px-3 mb-3  border-top-1 border-right-1 border-bottom-1 rounded-1">
+                      <div class="row align-items-center">
+                        <div class="col-md-8 mb-3 mb-sm-0 ">
+                          <i class="fa-solid fa-wrench"></i><a href="/" class="mx-2"></a>
+                          <br>
+                          <span href="/" class="mx-2">Km: <%= w.km %></span>
+                          <br>
+                          <span href="/" class="mx-2">Revision type: <%= w.revision_type %></span>
+                          <br>
+                          <span href="/" class="mx-2">Description: <%= w.description %></span>
+                          
+                        </div>
+                        <div class="col-md-4 op-7">
+                        
+                        </div>
+                      </div>
+                    </div>
+                        
+                  <% }); %>
+                <%} else { %>
+                  <div class="row">
+                    
+                  </div>
+                <% } %>
+              </div> 
+            </div>
+            
+
+          <div class="row mt-5">
+            <div class="col-4">
+              <h3>Pending authorizations</h3>
+              <div class="col-6 mt-3">
+                <% if (vehiclesToAuthorize.length > 0) { %>
+                  <% vehiclesToAuthorize.forEach(function(v){ %>
+                    <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+                      <div class="card-header"><%= v.plate_number %></div>
+                      <div class="card-body">
+                        <h5 class="card-title"><%= v.make + " - " + v.model %></h5>
+
+                        <a href="/account/auth?id=<%= v.authorized_user_id %>&vehicle_id=<%= v.id %>" class="card-link"><button type="button" class="btn btn-success">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+  <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"></path>
+</svg>
+
+              </button></a>
+              <button type="button" class="btn btn-danger ml-2">
+                <a href="/account/deleteAuth?id=<%= v.id_auth %>" style="text-decoration: none; color: inherit;">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                   <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"></path>
+                   <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"></path>
+                   </svg>
+                </a> 
+               </button>
+                      </div>
+                    </div>
+                        
+                  <% }); %>
+                <%} else { %>
+                  
+                <% } %>
+                
+              </div>
+            </div>
+            <div class="col-4">
+              <h3>Current authorized vehicles</h3>
+              <div class="row">
+                <div class="col-12 mt-3">
+                  <% if (vehiclesAuthorizedByOwner.length > 0) { %>
+                    <% vehiclesAuthorizedByOwner.forEach(function(v){ %>
+                      <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+                        <div class="card-header"><%= v.plate_number %></div>
+                        <div class="card-body">
+                          <h5 class="card-title"><%= v.make + " - " + v.model %></h5>
+                          <% if (v.status) { %>
+                            <a href="" class="card-link btn btn-success">Authorized - <%= v.dni %></a>
+                            <button type="button" class="btn btn-danger ml-2">
+                             <a href="/account/deleteAuth?id=<%= v.id %>" style="text-decoration: none; color: inherit;">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"></path>
+                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"></path>
+                                </svg>
+                             </a> 
+                            </button>
+                          <%} else { %>
+                            <a href="" class="card-link btn btn-danger">Not authorized yet...</a>
+                          <% } %>
+                        </div>
+                      </div>
+                          
+                    <% }); %>
+                  <%} else { %>
+                    
+                  <% } %>
+                  
+                </div>
+                
+              </div>
+            </div>
+            <div class="col-4">
+              <h3>Ask for authorization</h3>
+              <form action="/account/askAuth" method="post">
+                <div class="form-group">
+                  <div class="form-group col-md-6">
+                    <label >Plate number</label>
+                    <input type="text" class="form-control" name="plate_number" placeholder="Plate number">
+                  </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Ask</button>
+              </form>
+              <div class="row">
+                <div class="col mt-3">
+                  <% if (waitingAuthorizations.length > 0) { %>
+                    <% waitingAuthorizations.forEach(function(v){ %>
+                      <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+                        <div class="card-header"><%= v.plate_number %></div>
+                        <div class="card-body">
+                          <h5 class="card-title"><%= v.make + " - " + v.model %></h5>
+                          <% if (v.status) { %>
+                            <a href="" class="card-link btn btn-success">Authorized</a>
+                          <%} else { %>
+                            <a href="" class="card-link btn btn-danger">Not authorized yet...</a>
+                          <% } %>
+                        </div>
+                      </div>
+                          
+                    <% }); %>
+                  <%} else { %>
+                    
+                  <% } %>
+                  
+                </div>
+                
+              </div>
+            </div>
+          </div>
+      </div>  
+      
+      <% if (success) { %>
+        <div class="alert alert-success" role="alert">
+          <%= msg%>
+        </div>
+      <% } %>
+    </section>
+
+</body>
+</html>

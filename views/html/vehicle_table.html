@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/86589e81fc.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="/public/css/vehicle_table.css" />
+    <title>CarChain</title>
+</head>
+<body>
+    
+    <section>
+
+      <h3 class="text-center mt-3" style="background-color: rgb(71, 98, 148);"> 
+        Informe del vehículo
+      </h3>
+      
+        <div class="table-container container-sm p-4">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <h6 scope="col" class="text-center" style="background-color: rgb(160, 160, 160);">DATOS DEL TITULAR</h6>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Nombre</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><%= username %></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">DNI</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><%= dni %></td>
+                  </tr>
+                </tbody>
+            </table>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <h6 scope="col" class="text-center" style="background-color: rgb(160, 160, 160);">IDENTIFICACIÓN DEL VEHÍCULO</h6>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Matrícula</th>
+                    <td></td>
+                    <td></td>
+                    <td><%= plate_number %></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Marca</th>
+                    <td></td>
+                    <td></td>
+                    <td><%= make %></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Modelo</th>
+                    <td></td>
+                    <td></td>
+                    <td><%= model %></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Fecha de matriculación</th>
+                    <td></td>
+                    <td></td>
+                    <td>08/06/1999</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Domicilio del vehículo</th>
+                    <td></td>
+                    <td></td>
+                    <td>C/ Leganitos 1</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Tipo de vehículo</th>
+                    <td></td>
+                    <td></td>
+                    <td>Berlina</td>
+                  </tr>
+                </tbody>
+            </table>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <h6 scope="col" class="text-center" style="background-color: rgb(160, 160, 160);">HISTORIAL DE TITULARES</h6>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Fecha inicio</th>
+                    <td>18/07/1998</td>
+                    <th scope="row">Fecha fin</th>
+                    <td>18/07/2008</td>
+                    <th scope="row">Tipo</th>
+                    <td>Particular</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Fecha inicio</th>
+                    <td>18/07/1998</td>
+                    <th scope="row">Fecha fin</th>
+                    <td>18/07/2008</td>
+                    <th scope="row">Tipo</th>
+                    <td>Particular</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Fecha inicio</th>
+                    <td>18/07/1998</td>
+                    <th scope="row">Fecha fin</th>
+                    <td>18/07/2008</td>
+                    <th scope="row">Tipo</th>
+                    <td>Particular</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Fecha inicio</th>
+                    <td>18/07/1998</td>
+                    <th scope="row">Fecha fin</th>
+                    <td>18/07/2008</td>
+                    <th scope="row">Tipo</th>
+                    <td>Particular</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Fecha inicio</th>
+                    <td>18/07/1998</td>
+                    <th scope="row">Fecha fin</th>
+                    <td>18/07/2008</td>
+                    <th scope="row">Tipo</th>
+                    <td>Particular</td>
+                  </tr>
+                </tbody>
+            </table>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <h6 scope="col" class="text-center" style="background-color: rgb(160, 160, 160);">HISTORIAL DE REPARACIONES</h6>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% if (reparations.length > 0) { %>
+                    <% reparations.forEach(function(r){ %>
+                      <tr>
+                        <th scope="row">Fecha intervención</th>
+                        <td><%= r.date %></td>
+                        <th scope="row">Tipo</th>
+                        <td><%= r.revision_type %></td>
+                        <th scope="row">Km</th>
+                        <td><%= r.km %></td>
+                        <th scope="row">Descripción</th>
+                        <td><%= r.description %></td>
+                      </tr>
+                          
+                    <% }); %>
+                  <%} else { %>
+                    
+                  <% } %>
+                  
+                </tbody>
+            </table>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <h6 scope="col" class="text-center" style="background-color: rgb(160, 160, 160);">HISTORIAL DE LECTURAS CUENTA KILÓMETROS</h6>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% if (km_history.length > 0) { %>
+                    <% km_history.forEach(function(k){ %>
+                      <tr>
+                        <th scope="row">Fecha lectura</th>
+                        <td><%= k.date %></td>
+                        <td></td>
+                        <th scope="row">Km</th>
+                        <td><%= k.value %></td>
+                      </tr>
+                          
+                    <% }); %>
+                  <%} else { %>
+                    
+                  <% } %>
+                  
+                </tbody>
+            </table>
+            <table class="table">
+              <thead>
+                <tr>
+                  <h6 scope="col" class="text-center" style="background-color: rgb(160, 160, 160);">INFORMACIÓN TÉCNICA</h6>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Cilindrada</th>
+                  <td></td>
+                  <td></td>
+                  <td>1461.0</td>
+                </tr>
+                <tr>
+                  <th scope="row">Combustible</th>
+                  <td></td>
+                  <td></td>
+                  <td>DIESEL</td>
+                </tr>
+                <tr>
+                  <th scope="row">Potencia</th>
+                  <td></td>
+                  <td></td>
+                  <td>155 CVF</td>
+                </tr>
+                <tr>
+                  <th scope="row">Plazas</th>
+                  <td></td>
+                  <td></td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <th scope="row">Nivel de emisiones</th>
+                  <td></td>
+                  <td></td>
+                  <td>EURO 3</td>
+                </tr>
+              </tbody>
+          </table>
+        </div>
+
+      
+
+    </section>
+
+</body>
+</html>
